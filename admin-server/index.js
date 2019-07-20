@@ -15,6 +15,8 @@ const mydb = mysql.createConnection(
 	database: 'film',
 	port: 3306
 })
+//数据库连接
+mydb.connect()
 //跨域
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
@@ -26,7 +28,9 @@ app.use((req, res, next) => {
     res.header('Content-Type', 'application/json;charset=utf-8');
     next();
 });
-mydb.connect()
+// 接受post过来的额数据
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //使用cookie-parser
 let secret = 'app.film.com';
 app.use(cookie(secret));
@@ -41,8 +45,9 @@ app.get('/', (req, res) => {
     res.send('首页');
 });
 app.post('/login',(req,res)=>{
-	let sql = 'SELECT * FROM admin WHERE name = ? LIMIT 1'
-	mydb.query('sql',[req.body.name],(err,result)=>{
+
+	 let sql = 'SELECT * FROM admin WHERE name = ? LIMIT 1';
+	mydb.query(sql,[req.body.name],(err,result)=>{
 		console.log(result)
 		if(err){
 			console.log(err);
