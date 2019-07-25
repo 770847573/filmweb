@@ -39,7 +39,7 @@ app.use(session({
   secret: secret,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { maxAge: 7*24*3600000 }
 }))
 app.get('/', (req, res) => {
     res.send('首页');
@@ -72,7 +72,44 @@ app.post('/login',(req,res)=>{
 		
 	})
 })
+//注册
+app.post('/signup', (req, res)=>{
+    let sql = 'select * from admin WHERE 1';
+    if(req.body.username){
+        sql+=" AND username='"+req.body.username+"'";
+    }
+    mydb.query(sql, (err, results)=>{
+    	if(results.length > 0) {
+    		res.json({
+    			msg: "username_already_exist"
+    		})
+    	} else {
+    		let newsql = `insert into admin(username,passw1) values ("${req.body.username}",${req.body.passwor1})`;
+    		mydb.query(newsql, (err, results) => {
+    			if(err) {
+    				console.log(err);
+    				return;
+    			}
+    			res.json({
+    				msg: "reg_success"
+    			})
+    		})
+    	}
+    });
+});
 
+//提供session信息的路由
+
+app.get('/check', (req, res) => {
+    console.log(req.session);
+    res.json({ aid: req.session.aid, name: req.session.name });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.aid = '';
+	req.session.name = '';
+    res.json({ aid: req.session.aid, name: req.session.name });
+});
 app.listen(81,()=>{
 	console.log('Server started on 81')
 })

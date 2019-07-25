@@ -1,4 +1,23 @@
 <template>
+	<div class="login">
+		
+	
+		<my-header2></my-header2>
+		<el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  
+  <el-breadcrumb-item>登录</el-breadcrumb-item>
+  
+</el-breadcrumb>
+		<div class="lg_body">
+			<div class='lg_img'>
+				<img src="../../img/login.png" alt="" style="width: 480px; height: 370px;">
+			</div>
+			
+			
+			<div class="lg_section">
+				
+			
 	<div class="contanier">
 		<el-form
 		  :model="ruleForm"
@@ -17,6 +36,10 @@
 		    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
 		  </el-form-item>
 		</el-form>
+		</div>
+	</div>
+		</div>
+		
 	</div>
 </template>
 
@@ -59,7 +82,7 @@
 				  }
 				  
 				  if(res.data.r == 'ok'){
-				      this.$router.push('/center');
+				      this.$router.push('/');
 				      return ;
 				  }
 			  })
@@ -84,8 +107,25 @@
 
 <style scoped="scoped">
 	  .contanier{
-	    width: 500px;
+	    width: 100%;
 	    height: 200px;
 	    margin: 100px auto;
+	}
+	.lg_body{
+		margin: 0 auto 70px;
+    width: 980px;
+	}
+	.lg_img{
+		float: left;
+    height: 370px;
+    margin: 0 ;
+    width: 480px;
+	}
+	.lg_section{
+		float: left;
+    padding-top: 0;
+	margin: 0 auto;
+    width: 370px;
+    background: #FFF;
 	}
 </style>

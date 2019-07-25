@@ -21,4 +21,11 @@
 a{
 	text-decoration: none
 }
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.el-breadcrumb {
+    margin-left: 24%
+}
 </style>

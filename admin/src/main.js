@@ -8,9 +8,11 @@ import './registerServiceWorker'
 import axios from 'axios'
 
 import Header from '@/components/header'
+import Header2 from '@/components/header2'
 
 
 Vue.component('my-header',Header)
+Vue.component('my-header2',Header2)
 axios.defaults.baseURL='http://localhost:81';
 axios.defaults.withCredentials = true;
 Vue.prototype.axios = axios;
